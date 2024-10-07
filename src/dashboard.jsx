@@ -3,7 +3,7 @@ import AddJob from "./DasboardComponents/addJob"
 import AllJob from "./DasboardComponents/allJob"
 import UpdateJob from './DasboardComponents/updateJob'
 import Profile from "./DasboardComponents/profile"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import JobCard from "./DasboardComponents/jobCard"
 import axios from "axios"
@@ -28,6 +28,28 @@ const NavBar = () => {
    const navigate = useNavigate()
    const userLogo = getUser.charAt(0)
 
+   const INACTIVITY_LIMIT = 5 * 60 * 1000;
+   let inactivityTimer = useRef(null)
+
+
+   // handle Inactivity of user
+   const handleUserInactivity = useCallback(() => {
+      clearTimeout(inactivityTimer)
+      inactivityTimer.current = setTimeout(() => {
+         handleClearStorage();
+      }, INACTIVITY_LIMIT)
+   }, [INACTIVITY_LIMIT, handleClearStorage])
+
+
+   // clear localStorage
+   const handleClearStorage = useCallback(() => {
+      setToggleLogOut(true)
+      localStorage.removeItem('token')
+      localStorage.removeItem('name')
+      localStorage.removeItem('userId')
+      navigate('/login')
+
+   }, [navigate])
    const handleChange = (e) => {
       setSearchParams({
          ...searchParams,
@@ -66,8 +88,19 @@ const NavBar = () => {
    useEffect(() => {
       // get all jobs
       renderJobs()
+      window.addEventListener('mousemove', handleUserInactivity)
+      window.addEventListener('keydown', handleUserInactivity)
 
-   }, [renderJobs])
+      inactivityTimer.current = setTimeout(() => {
+         handleClearStorage()
+      }, INACTIVITY_LIMIT)
+
+      return () => {
+         window.removeEventListener('mousemove', handleUserInactivity)
+         window.removeEventListener('keydown', handleUserInactivity)
+         clearTimeout(inactivityTimer)
+      }
+   }, [INACTIVITY_LIMIT, handleClearStorage, handleUserInactivity, renderJobs])
 
 
 
@@ -83,14 +116,7 @@ const NavBar = () => {
       setToggleLogOut(!toggleLogOut)
 
    }
-   const handleClearStorage = () => {
-      setToggleLogOut(true)
-      localStorage.removeItem('token')
-      localStorage.removeItem('name')
-      localStorage.removeItem('userId')
-      navigate('/login')
 
-   }
 
    // handle delete job
    const handleDelete = async (id) => {
