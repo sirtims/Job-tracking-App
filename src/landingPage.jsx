@@ -20,7 +20,7 @@ const LandingPage = () => {
                      job <span className="text-primary500">tracking</span> app
                   </h1>
                   <p className="text-gray-700 mb-8 md:w-[500px] font-[Sans-Serif] leading-relaxed">
-                     Crucifix narwhal street art asymmetrical, humblebrag tote bag pop-up fixie raclette taxidermy craft beer. Brunch bitters synth, VHS crucifix heirloom meggings bicycle rights.
+                     Track your career journey seamlessly with intuitive tools, insightful analytics, and customizable features that adapt to your unique needs. Stay organized, prioritize tasks, and connect with opportunities effortlessly
                   </p>
                   <a
                      className="bg-primary500 text-white font-bold px-4 text-xl py-2 rounded-md hover:text-white hover:bg-primary700 transition"
