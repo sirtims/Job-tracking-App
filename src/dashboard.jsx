@@ -32,15 +32,6 @@ const NavBar = () => {
    let inactivityTimer = useRef(null)
 
 
-   // handle Inactivity of user
-   const handleUserInactivity = useCallback(() => {
-      clearTimeout(inactivityTimer)
-      inactivityTimer.current = setTimeout(() => {
-         handleClearStorage();
-      }, INACTIVITY_LIMIT)
-   }, [INACTIVITY_LIMIT, handleClearStorage])
-
-
    // clear localStorage
    const handleClearStorage = useCallback(() => {
       setToggleLogOut(true)
@@ -50,6 +41,18 @@ const NavBar = () => {
       navigate('/login')
 
    }, [navigate])
+
+   // handle Inactivity of user
+   const handleUserInactivity = useCallback(() => {
+      clearTimeout(inactivityTimer.current)
+      inactivityTimer.current = setTimeout(() => {
+         handleClearStorage();
+      }, INACTIVITY_LIMIT)
+   }, [INACTIVITY_LIMIT, handleClearStorage])
+
+
+
+
    const handleChange = (e) => {
       setSearchParams({
          ...searchParams,
