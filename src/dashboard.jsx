@@ -50,6 +50,8 @@ const NavBar = () => {
       setIsLoading(true)
       const { jobs, error } = await GetJobs(searchParams)
       setIsLoading(false)
+      console.log(jobs);
+
       if (jobs.length < 1) {
          setGetJobs([])
          setJobSize('No jobs on your lists...!!!')

@@ -30,7 +30,7 @@ const UpdateJob = ({ jobId }) => {
          setError(error.response.data.msg)
 
       }
-   }, [token])
+   }, [token, jobId])
 
    useEffect(() => {
       fetchJobs()
@@ -108,8 +108,8 @@ const UpdateJob = ({ jobId }) => {
                   </select>
                </div>
                <div className="flex mx-2 p-0 gap-3">
-                  <button onClick={handleClear} type="button" className="bg-primary500 mt-5 active:bg-primary500 w-full text-white h-9  hover:bg-redDark transition rounded-sm text-xl">clear</button>
-                  <button type="submit" className="bg-primary500 mt-5 active:bg-primary500 w-full text-white h-9 hover:bg-redDark transition rounded-sm text-xl">save changes</button>
+                  <button onClick={handleClear} type="button" className="bg-primary500 mt-5 active:bg-primary500 w-full text-white h-9  hover:bg-redDark transition rounded-sm md:text-xl text-sm">clear</button>
+                  <button type="submit" className="bg-primary500 mt-5 active:bg-primary500 w-full text-white h-9 hover:bg-redDark transition rounded-sm md:text-xl text-sm">save changes</button>
                </div>
                <p className={`${error !== 'Success' ? "text-red-600" : 'text-green-600'} my-3`}>{error}</p>
 

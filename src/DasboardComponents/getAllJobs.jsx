@@ -13,11 +13,12 @@ export const GetJobs = async (searchParams) => {
    })
 
    try {
-      const { data: { jobs } } = await axios.get(url, {
+      const { data: { jobs, count } } = await axios.get(url, {
          headers: {
             Authorization: `Bearer ${token}`
          }
       })
+      console.log(count);
 
       return { jobs, error: '' };
 
