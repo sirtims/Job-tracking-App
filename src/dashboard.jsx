@@ -27,6 +27,7 @@ const NavBar = () => {
    })
    const navigate = useNavigate()
    const userLogo = getUser.charAt(0)
+
    const handleChange = (e) => {
       setSearchParams({
          ...searchParams,
@@ -50,6 +51,7 @@ const NavBar = () => {
       const { jobs, error } = await GetJobs(searchParams)
       setIsLoading(false)
       if (jobs.length < 1) {
+         setGetJobs([])
          setJobSize('No jobs on your lists...!!!')
       }
       else {
@@ -102,6 +104,7 @@ const NavBar = () => {
             // Remove the deleted job from the current state
             setGetJobs((prevJobs) => prevJobs.filter(job => job._id !== id))
             if (getJobs.length < 1) {
+
                setJobSize('No jobs on your lists...!!!')
             }
          } else {

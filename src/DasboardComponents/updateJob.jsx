@@ -14,17 +14,18 @@ const UpdateJob = ({ jobId }) => {
    // getjob info
    const fetchJobs = useCallback(async () => {
       try {
-         const { data: { jobs } } = await axios.get('https://jobs-api-20oi.onrender.com/api/v1/jobs', {
+         const { data: { job } } = await axios.get(`https://jobs-api-20oi.onrender.com/api/v1/jobs/${jobId}`, {
             headers: {
                Authorization: `Bearer ${token}`
             }
          })
+         console.log(job);
 
-         setCompany(jobs[0].company)
-         setStatus(jobs[0].status)
-         setJobType(jobs[0].jobType)
-         setLocation(jobs[0].location)
-         setPosition(jobs[0].position)
+         setCompany(job.company)
+         setStatus(job.status)
+         setJobType(job.jobType)
+         setLocation(job.location)
+         setPosition(job.position)
       } catch (error) {
          setError(error.response.data.msg)
 
