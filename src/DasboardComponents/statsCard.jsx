@@ -16,7 +16,7 @@ const StatsCard = ({ count, text, url }) => {
                   <img className="w-10" src={url} alt="" />
                </div>
             </div>
-            <h3 className="text-2xl md:text-xl text-grey400 mt-10">{text}</h3>
+            <h3 className="text-xl md:text-xl text-grey400 mt-10">{text}</h3>
          </div>
       </section>
    )
