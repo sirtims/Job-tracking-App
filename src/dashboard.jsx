@@ -8,8 +8,9 @@ import { useNavigate } from "react-router-dom"
 import JobCard from "./DasboardComponents/jobCard"
 import axios from "axios"
 import { GetJobs } from './DasboardComponents/getAllJobs'
+import Stats from "./DasboardComponents/stats"
 
-const NavBar = () => {
+const Dashboard = () => {
    const [isActive, setIsActive] = useState('AllJobs')
    const [isActiveSideBar, setISActiveSideBar] = useState(false)
    const [isLoading, setIsLoading] = useState(true)
@@ -19,6 +20,7 @@ const NavBar = () => {
    const [toggleLogOut, setToggleLogOut] = useState(true)
    const [selectJobId, setSelectJobId] = useState(null)
    const [jobSize, setJobSize] = useState('')
+
    const [searchParams, setSearchParams] = useState({
       company: '',
       status: '',
@@ -28,7 +30,7 @@ const NavBar = () => {
    const navigate = useNavigate()
    const userLogo = getUser.charAt(0)
 
-   const INACTIVITY_LIMIT = 5 * 60 * 1000;
+   const INACTIVITY_LIMIT = 20 * 60 * 1000;
    let inactivityTimer = useRef(null)
 
 
@@ -75,7 +77,7 @@ const NavBar = () => {
       setIsLoading(true)
       const { jobs, error } = await GetJobs(searchParams)
       setIsLoading(false)
-      console.log(jobs);
+
 
       if (jobs.length < 1) {
          setGetJobs([])
@@ -189,6 +191,7 @@ const NavBar = () => {
             </div>
             {/* display content */}
             <div className={`bg-grey50  ${isActiveSideBar === false ? 'md:w-full' : ''} py-20 min-h-[100vh] border-2 `}>
+               {isActive === 'Stats' && <Stats searchParams={searchParams} />}
                {isActive === 'AddJob' && <AddJob />}
                {isActive === 'AllJobs' && <AllJob searchParams={searchParams} handleChange={handleChange} handleClearFilters={handleClearFilters} error={error} />}
                {isActive === 'Profile' && <Profile />}
@@ -215,4 +218,4 @@ const NavBar = () => {
    )
 }
 
-export default NavBar
+export default Dashboard
