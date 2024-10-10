@@ -30,7 +30,7 @@ const Dashboard = () => {
    const navigate = useNavigate()
    const userLogo = getUser.charAt(0)
 
-   const INACTIVITY_LIMIT = 20 * 60 * 1000;
+   const INACTIVITY_LIMIT = 10 * 60 * 1000;
    let inactivityTimer = useRef(null)
 
 

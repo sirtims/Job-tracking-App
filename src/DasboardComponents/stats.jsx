@@ -11,7 +11,6 @@ const Stats = ({ searchParams }) => {
    useEffect(() => {
       const fetch = async () => {
          const { jobs } = await GetJobs(searchParams)
-         console.log(searchParams);
          let pendingCount = 0;
          let interviewCount = 0;
          let declinedCount = 0;
